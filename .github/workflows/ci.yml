@@ -25,5 +25,9 @@ jobs:
     - name: Check code style
       run: |
         pip install flake8 black
-        flake8 src/ --count --max-complexity=10 --statistics
-        black --check src/ tests/
+        # Сначала форматируем с line-length=79
+        black --line-length=79 src/ tests/
+        # Проверяем flake8
+        flake8 src/ --count --max-complexity=10
+        # Проверяем black с теми же настройками
+        black --check --line-length=79 src/ tests/
