@@ -1,0 +1,35 @@
+# Ваш .gitignore должен содержать:
+nul
+
+# Виртуальное окружение
+venv/
+.env
+.venv/
+env/
+
+# Кэш pytest
+.pytest_cache/
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Системные файлы
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Логи
+*.log
+
+# Временные файлы
+tmp/
+temp/

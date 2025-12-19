@@ -1,0 +1,52 @@
+name: Generate Daily Report
+
+on:
+  schedule:
+    - cron: '0 8 * * *'  # Каждый день в 08:00 UTC
+  workflow_dispatch:  # Ручной запуск
+    inputs:
+      report_type:
+        description: 'Тип отчета'
+        required: true
+        default: 'weekly'
+        type: choice
+        options:
+          - daily
+          - weekly
+          - monthly
+
+jobs:
+  generate-report:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+    
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+    
+    - name: Generate sample report
+      run: |
+        python main.py --input data/sample_logs.csv --output generated_report
+    
+    - name: Save report as artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: learning-report
+        path: generated_report/
+    
+    - name: Deploy to GitHub Pages
+      if: github.ref == 'refs/heads/main'
+      run: |
+        mkdir -p docs
+        cp generated_report/*.png docs/
+        cp generated_report/results.json docs/
+        
+        # Создание простой HTML страницы
+        echo '<html><body><h1>Learning Report</h1><img src="score_distribution.png"></body></html>' > docs/index.html
