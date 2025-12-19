@@ -141,7 +141,7 @@ black --check src/ tests/
 black src/ tests/
 ```
 
-## CI/CD
+## CI/CD ![CI Status](https://github.com/fem1x/the-project/actions/workflows/ci.yml/badge.svg)
 Проект использует GitHub Actions для автоматизации:
 
 ### Основной workflow (`ci.yml`):
@@ -195,3 +195,4 @@ student_id,activity_type,activity_name,timestamp,score,duration_minutes,course_i
 -  GitHub: fem1x
 -  GitVerse: anton.ls
 ---
+
