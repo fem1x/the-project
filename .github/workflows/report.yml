@@ -36,7 +36,7 @@ jobs:
         python main.py --input data/sample_logs.csv --output generated_report
     
     - name: Save report as artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: learning-report
         path: generated_report/
