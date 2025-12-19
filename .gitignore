@@ -1,5 +1,6 @@
 # Ваш .gitignore должен содержать:
 nul
+fix_style.py
 
 # Виртуальное окружение
 venv/
