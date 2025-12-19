@@ -1,9 +1,9 @@
+# src/parser.py - исправленная версия
 """
 Парсер логов LMS
 """
 
 import pandas as pd
-from datetime import datetime
 from typing import List, Dict
 
 
@@ -14,26 +14,21 @@ class LogParser:
     def parse(self) -> List[Dict]:
         """Чтение и обработка CSV файла"""
         try:
-            # Чтение CSV
             df = pd.read_csv(self.filepath)
 
-            # Проверка необходимых колонок
             required = ["student_id", "activity_type", "timestamp", "score"]
             for col in required:
                 if col not in df.columns:
                     raise ValueError(f"Отсутствует колонка: {col}")
 
-            # Преобразование данных
             df["timestamp"] = pd.to_datetime(df["timestamp"])
             df["date"] = df["timestamp"].dt.date
             df["hour"] = df["timestamp"].dt.hour
             df["day_of_week"] = df["timestamp"].dt.day_name()
 
-            # Заполнение пропущенных значений
             if "duration_minutes" in df.columns:
                 df["duration_minutes"] = df["duration_minutes"].fillna(0)
 
-            # Конвертация в список словарей
             logs = df.to_dict("records")
 
             print(f"✓ Успешно прочитано {len(logs)} записей")
